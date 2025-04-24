@@ -16,14 +16,21 @@ Copy Wifi-Interrupt-Inspector folder into Raspberry PI 3 or 4
 Open Wifi-Interrupt-Inspector proect in VS code from Raspberry PI
 
 # 2. Install the requirements
-pip install pyshark
-pip install pandas
-pip install collections
-pip install scikit-learn
-pip install socket
-pip install scaty
-pip install seaborn
-pip install matplotlle
+> pip install pyshark <br/>
+> pip install pandas <br/>
+> pip install collections <br/>
+> pip install scikit-learn <br/>
+> pip install socket <br/>
+> pip install scaty <br/>
+> pip install seaborn <br/>
+> pip install matplotlle <br/>
 
 # 3. Run the project
 the device running the software will start to scan the wifi
+
+# 4. Contributors
+**Yasmin Fathima <br/>**
+**Sanaa T <br/>**
+**Feyza Thaneesh <br/>**
+**Sana Fathima <br/>**
+
