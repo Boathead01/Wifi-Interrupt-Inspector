@@ -10,7 +10,7 @@ import datetime
 import RPi.GPIO as GPIO
 import time
 
-# --- Buzzer Setup ---
+# Buzzer Setup
 BUZZER_PIN = 17 # GPIO17 (Physical pin 11)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUZZER_PIN, GPIO.OUT)
@@ -20,7 +20,7 @@ def activate_buzzer(duration=2):
     time.sleep(duration)
     GPIO.output(BUZZER_PIN, GPIO.LOW)
 
-# --- Step 1: Jamming Detection ---
+# Jamming Detection
 print("Checking for jamming...")
 try:
     df_jam = pd.read_csv('logged_data.csv')
@@ -48,7 +48,7 @@ except Exception as e:
     GPIO.cleanup()
     exit()
 
-# --- Helper Functions ---
+
 def ip_to_int(ip):
     return int.from_bytes(socket.inet_aton(ip), 'big')
 
@@ -56,7 +56,7 @@ def load_authorized_ips(filename):
     with open(filename, 'r') as f:
         return [line.strip() for line in f if line.strip()]
 
-# --- IP Anomaly Detector Class ---
+# IP Anomaly Detector
 class IPAnomalyDetector:
     def __init__(self, k=3, dist_threshold=1_000_000):
         self.k = k
@@ -80,7 +80,7 @@ class IPAnomalyDetector:
         avg_distance = np.mean(distances)
         return avg_distance > self.dist_threshold
 
-# --- Load PCAP and Setup ---
+# Load PCAP
 print("Loading PCAP file...")
 cap = pyshark.FileCapture('bruteforce.pcap', display_filter='ftp')
 attempts = defaultdict(int)
@@ -92,7 +92,7 @@ detector = IPAnomalyDetector()
 detector.known_ips.extend(authorized_ips)
 detector.train()
 
-# --- Step 2: Monitor IPs for 1 Minute ---
+# Monitor IPs
 print("Monitoring authorized IPs for 1 minute...\n")
 start_time = datetime.datetime.now()
 for pkt in cap:
@@ -109,7 +109,7 @@ for pkt in cap:
 
 print("\n1-minute authorized IP monitoring complete.\nProceeding to brute-force and DDoS analysis...\n")
 
-# --- Step 3: Full Analysis ---
+# Full Analysis
 cap.close()
 cap = pyshark.FileCapture('bruteforce.pcap', display_filter='ftp')
 for pkt in cap:
@@ -136,7 +136,7 @@ for pkt in cap:
 cap.close()
 df = pd.DataFrame(records)
 
-# --- Step 4: ML-Based Analysis ---
+# ML
 if df.empty:
     print("No FTP login attempts found.")
 else:
@@ -189,5 +189,5 @@ else:
             else:
                 print(f"  Unauthorized, but not anomalous.")
 
-# --- Cleanup GPIO ---
+#Cleanup GPIO
 GPIO.cleanup()
