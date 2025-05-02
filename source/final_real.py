@@ -11,21 +11,21 @@ from sklearn.naive_bayes import GaussianNB
 import signal
 import time
 
-# === SETTINGS for IQ Capture ===
+# SETTINGS for IQ Capture 
 filename = "samples.bin"
 sample_rate = 10_000_000
 center_freq = 100_000_000
 num_samples = 1000 * 2
 jam_threshold_db = -60
 
-# === SETTINGS for Live Capture ===
+# SETTINGS for Live Capture
 INTERFACE = 'wlan0'
 IP_MONITOR_DURATION = 60  # 1 minute
 MAX_PACKETS = 1000
 DIST_THRESHOLD = 1_000_000
 K = 3
 
-# === Jamming Detection ===
+# Jamming Detection
 def detect_jamming():
     print("🎧 Capturing 1000 samples from HackRF...")
     subprocess.run([
@@ -61,7 +61,7 @@ def detect_jamming():
         print("No jamming detected. Proceeding...")
         return False
 
-# === IP & FTP Brute-force Monitoring ===
+# IP & FTP Brute-force Monitoring 
 attempts = defaultdict(int)
 records = []
 
