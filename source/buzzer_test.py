@@ -24,7 +24,7 @@ def activate_buzzer(duration=2):
 print("Checking for jamming...")
 try:
     df_jam = pd.read_csv('logged_data.csv')
-    threshold = 2.5e9  # 2.5 GHz
+    threshold = 2.5e9  
 
     if 'Frequency' in df_jam.columns:
         jammed = df_jam[df_jam['Frequency'] > threshold]
